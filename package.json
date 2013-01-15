@@ -5,7 +5,9 @@
   "author": "Harish Kamath <harishnk@gmail.com>",
   "dependencies": {
     "restify": ">= 2.0.4",
-    "mongoose": ">= 3.5.4"
+    "mongoose": ">= 3.5.4",
+    "node-foursquare": ">= 0.2.0",
+    "request": ">= 2.12.0"
   },
   "engines": {
     "node": ">=0.8"

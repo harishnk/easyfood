@@ -1,4 +1,5 @@
 var config = require('../config').config;
+var Foursquare = require('node-foursquare')(config.foursquare_config);
 var dbmodule = require('../db');
 var db = dbmodule.db;
 var mongoose = dbmodule.mongoose;
@@ -10,14 +11,48 @@ var UserMaster = mongoose.model('UserMaster');
 
 
 var User = function() {
-  this.getRecommendations = function(user_id, next){
-  	console.log("UserModel got it: %s (%s)", user_id, (new ObjectId(user_id)));
 
-  	// Sample code to create a new user
-	// var m = new UserMaster;
-	// m.save()
+  this.getUserById = function(userId, next){
+  	UserMaster.findById(new ObjectId(userId), function (err, doc){
+  		if(err) {
+          next(err);
+        } else {
+        	next(null, doc);
+        }
+  	});
+  }
 
-	UserMaster.findById(new ObjectId(user_id), function (err, doc){
+  this.getSocialSelf = function(accessToken, serviceName, next){
+  	// if serviceName == "foursquare"
+  	Foursquare.Users.getUser('self', accessToken, function (err, data) {
+  		if(err) {
+          next(err);
+        } else {
+        	next(null, data);
+        }
+  	});
+  }
+
+  this.updateAccessToken = function(accessToken, next){
+  	//Update document with current temp API access token
+  }
+
+  this.getFriends = function(userId, accessToken, next){
+  	// For Foursquare
+    userId = (userId == "me" ? "self" : userId)
+  	Foursquare.Users.getFriends(userId, null, accessToken, function (err, data) {
+  		if(err) {
+          next(err);
+        } else {
+        	next(null, data);
+        }
+    });
+  }
+
+  this.getRecommendations = function(userId, next){
+  	console.log("UserModel got it: %s (%s)", userId, (new ObjectId(userId)));
+
+	getUserById(userId, function(err, doc){
 		if(err){
 			next(err);
 			console.log(err);
@@ -67,4 +102,4 @@ var User = function() {
   }
 };
 
-module.exports.User = User;
+module.exports.User = new User();
