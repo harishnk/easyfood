@@ -24,7 +24,7 @@ var User = function() {
           res.write("<html>");
           res.write("<head>");
           res.write("<script>");
-          res.write("loginCallback(\"" + accessToken + "\");");
+          res.write("window.bridge.loginCallback(\"" + accessToken + "\");");
           res.write("</script>");
           res.write("</head>");
           res.write("</html>");
