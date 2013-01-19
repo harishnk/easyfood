@@ -24,7 +24,7 @@ var User = function() {
           res.send("<html>");
           res.send("<head>");
           res.send("<script>");
-	  res.send("loginCallback(\" + accessToken + "\");");
+	  res.send("loginCallback(\"" + accessToken + "\");");
           res.send("</script>");
           res.send("</head>");
           res.send("</html>");
