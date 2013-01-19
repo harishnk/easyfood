@@ -14,23 +14,23 @@ var User = function() {
         code: req.query.code
     }, function (error, accessToken) {
         if(error) {
-          res.send("Error: " + error.message);
+          res.write("Error: " + error.message);
         } else {
 
           console.log("***** accessToken ******\n%s\n************", accessToken);
 
           // For debugging purposes only-!
-	  res.writeHead(200, { 'Content-type': 'text/html' });
-          res.send("<html>");
-          res.send("<head>");
-          res.send("<script>");
-	  res.send("loginCallback(\"" + accessToken + "\");");
-          res.send("</script>");
-          res.send("</head>");
-          res.send("</html>");
+          res.writeHead(200, { 'Content-type': 'text/html' });
+          res.write("<html>");
+          res.write("<head>");
+          res.write("<script>");
+          res.write("loginCallback(\"" + accessToken + "\");");
+          res.write("</script>");
+          res.write("</head>");
+          res.write("</html>");
           res.end();
-        }
-    });
+        } 
+   });
   }
 
   this.getSocialSelf = function(req, res, next){
