@@ -20,7 +20,14 @@ var User = function() {
           console.log("***** accessToken ******\n%s\n************", accessToken);
 
           // For debugging purposes only-!
-          res.send("accessToken: " + accessToken);
+	  res.writeHead(200, { 'Content-type': 'text/html' });
+          res.send("<html>");
+          res.send("<head>");
+          res.send("<script>");
+	  res.send("loginCallback(\" + accessToken + "\");");
+          res.send("</script>");
+          res.send("</head>");
+          res.send("</html>");
           res.end();
         }
     });
