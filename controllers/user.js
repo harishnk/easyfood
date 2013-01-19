@@ -14,7 +14,7 @@ var User = function() {
         code: req.query.code
     }, function (error, accessToken) {
         if(error) {
-          res.write("Error: " + error.message);
+          res.end("Error: " + error.message);
         } else {
 
           console.log("***** accessToken ******\n%s\n************", accessToken);
